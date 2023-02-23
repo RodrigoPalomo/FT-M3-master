@@ -20,4 +20,13 @@ function tail() {}
 
 function curl() {}
 
-module.exports = {};
+module.exports = {
+    pwd,
+    date,
+    echo,
+    ls,
+    cat,
+    head,
+    tail,
+    curl
+};
