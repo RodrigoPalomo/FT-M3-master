@@ -37,7 +37,7 @@ function problemB() {
     "poem-one/wrong-file-name.txt",
     function (err, stanza4) {
       if (err) exerciseUtils.magenta(new Error(err));
-      else exerciseUtils.blue(stanza4);
+      else exerciseUtils.blue(stanza4);//asdasd
     }
   );
 
