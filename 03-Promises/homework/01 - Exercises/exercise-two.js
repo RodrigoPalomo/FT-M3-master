@@ -1,5 +1,6 @@
 "use strict";
 
+const { exec } = require("child_process");
 let exerciseUtils = require("./utils");
 
 let args = process.argv.slice(2).map(function (st) {
@@ -28,6 +29,11 @@ function problemA() {
 
   // promise version
   // Tu código acá:
+  exerciseUtils.promisifiedReadFile("poem-two/stanza-01.txt")
+  .then(stanza1 => exerciseUtils.blue(stanza1))
+
+  exerciseUtils.promisifiedReadFile("poem-two/stanza-02.txt")
+  .then(stanza2 => exerciseUtils.blue(stanza2))
 }
 
 function problemB() {
@@ -47,6 +53,11 @@ function problemB() {
 
   // promise version
   // Tu código acá:
+  filenames.forEach(file => 
+    exerciseUtils.promisifiedReadFile(file)
+    .then(stanza => exerciseUtils.blue(stanza))
+    .catch(err => exerciseUtils.magenta(new Error(err)))
+    )
 }
 
 function problemC() {
