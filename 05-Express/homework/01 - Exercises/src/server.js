@@ -60,18 +60,41 @@ server.put("/posts/:id", (req, res) => {
   const { title, contents } = req.body;
 
   if (title && contents && id) {
-    const publicationId = publications.find((publi) => publi.id === Number(id));
+    let publicationId = publications.find((publi) => publi.id === Number(id));
     !publicationId
-    ? res.status(400).json(publicationId)
-    : (
-        publicationId = {... publicationId, title, contents}
-        && res.status(200).json(publicationId)
-    )
+      ? res.status(400).json(publicationId)
+      : (publicationId =
+          { ...publicationId, title, contents } &&
+          res.status(200).json(publicationId));
   } else {
     res.status(400).json({
       error:
         "No se recibieron los parámetros necesarios para modificar la publicación",
     });
+  }
+});
+
+server.delete("/posts/:id", (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res
+      .status(400)
+      .json({ error: "No se recibió el id de la publicación a eliminar" });
+  } else {
+    // res.status(200).json( { success: true })
+    let publicationFiltered = publications.filter(
+      (publi) => publi.id !== Number(id)
+    );
+    if (publications.length === publicationFiltered.length) { // comparamos la longitud de los arrays, y si son iguales significa que no sacó a nadie :-)
+      return res
+        .status(400)
+        .json({
+          error:
+            "No se recibió el id correcto necesario para eliminar la publicación",
+        });
+    }
+    publications = publicationFiltered;
+    res.status(200).json({ success: true });
   }
 });
 
